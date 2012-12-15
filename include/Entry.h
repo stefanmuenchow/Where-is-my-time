@@ -20,7 +20,12 @@ private:
 
 public:
 	Entry(time_t startTime, time_t endTime, std::string projectName, std::string description);
-	virtual ~Entry();
+
+	time_t get_start_time();
+	time_t get_end_time();
+	double get_duration();
+	std::string get_project_name();
+	std::string get_description();
 };
 
 #endif /* ENTRY_H_ */

@@ -14,10 +14,15 @@
 class Wimt {
 private:
 	DatabaseAccess *dbAccess;
+	int handleProjectCommand(std::string command, std::string args[]);
+	int handleEntryCommand(std::string command, std::string args[]);
+	int handleTrackCommand(std::string command, std::string args[]);
+	int handleStatsCommand(std::string command, std::string args[]);
+	void printProjects(std::vector<std::string> projects);
+	void printEntries(std::vector<Entry> entries);
+
 public:
 	Wimt(DatabaseAccess *dbAccess);
-	virtual ~Wimt();
-
 	int handleCommand(std::string category, std::string command, std::string args[]);
 };
 

@@ -14,19 +14,20 @@
 
 using namespace std;
 
-static string USAGE = string("USAGE:\n"
-							 "  project add <projectName>\n"
-							 "  project rem <projectName>\n"
-							 "  project list\n\n"
-							 "  entry add <startTime> <endTime> <projectName> <description>\n"
-							 "  entry rem <startTime> <endTime> <projectName>\n"
-							 "  entry list [<startTime> <endTime>]\n"
-							 "  entry list <projectName> [<startTime> <endTime>]\n\n"
-							 "  track start <projectName>\n"
-							 "  track stop <projectName> <description>\n\n"
-							 "  stats [show | export] [<startTime> <endTime>]\n"
-							 "  stats [show | export] <projectName> [<startTime> <endTime>]\n\n"
-							 "  help\n");
+static string USAGE = string(
+		"USAGE:\n"
+		"  project add <projectName>\n"
+		"  project rem <projectName>\n"
+		"  project list\n\n"
+		"  entry add <startTime> <endTime> <projectName> <description>\n"
+		"  entry rem <startTime> <endTime> <projectName>\n"
+		"  entry list [<startTime> <endTime>]\n"
+		"  entry list <projectName> [<startTime> <endTime>]\n\n"
+		"  track start <projectName>\n"
+		"  track stop <projectName> <description>\n\n"
+		"  stats [show | export] [<startTime> <endTime>]\n"
+		"  stats [show | export] <projectName> [<startTime> <endTime>]\n\n"
+		"  help\n");
 
 static string DB_NAME = "wimt.db";
 
@@ -39,7 +40,7 @@ int main(int argc, char** argv) {
 
 	string paramCategory = string(argv[1]);
 	string paramCommand;
-	string paramArgs[4];
+	string paramArgs[4]= { "\0", "\0", "\0", "\0" };
 
 	if (argc >= 3) {
 		paramCommand = string(argv[2]);

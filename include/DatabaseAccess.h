@@ -16,7 +16,9 @@
 class DatabaseAccess {
 private:
 	sqlite3 *dataBase;
-	void executeQuery(std::string stmt, sqlite3_callback callback);
+	std::vector<std::string> projectResults;
+	std::vector<Entry> entryResults;
+	void executeQuery(std::string stmt, sqlite3_callback callback, void *resultVector);
 
 public:
 	DatabaseAccess(std::string dbName);

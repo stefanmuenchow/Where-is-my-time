@@ -9,9 +9,6 @@
 #include <iostream>
 #include <stdlib.h>
 
-static std::vector<std::string> projectResults;
-static std::vector<Entry> entryResults;
-
 DatabaseAccess::DatabaseAccess(std::string dbName) {
 	// Establish database connection
 	int rc;
@@ -31,10 +28,10 @@ DatabaseAccess::~DatabaseAccess() {
 	sqlite3_close(dataBase);
 }
 
-void DatabaseAccess::executeQuery(std::string stmt, sqlite3_callback callback) {
+void DatabaseAccess::executeQuery(std::string stmt, sqlite3_callback callback, void *resultVector) {
 	int rc;
 	char *errMsg = '\0';
-	rc = sqlite3_exec(dataBase, stmt.c_str(), callback, 0, &errMsg);
+	rc = sqlite3_exec(dataBase, stmt.c_str(), callback, resultVector, &errMsg);
 
 	if (rc != SQLITE_OK) {
 		std::cerr << "SQL error: " << errMsg << std::endl;
@@ -42,34 +39,36 @@ void DatabaseAccess::executeQuery(std::string stmt, sqlite3_callback callback) {
 	}
 }
 
-static int projectsCallback(void *notUsed, int numResults, char **values, char **colNames) {
-	projectResults.clear();
-	projectResults.push_back(values[1]);
+static int projectsCallback(void *resultVector, int numResults, char **values, char **colNames) {
+	std::vector<std::string> *projectResults =  (std::vector<std::string>*) resultVector;
+	projectResults->clear();
+	projectResults->push_back(values[1]);
 
 	return 0;
 }
 
-static int entriesCallback(void *notUsed, int numResults, char **values, char **colNames) {
-	entryResults.clear();
+static int entriesCallback(void *resultVector, int numResults, char **values, char **colNames) {
+	std::vector<Entry> *entryResults =  (std::vector<Entry>*) resultVector;
+	entryResults->clear();
 	time_t startTime = atoi(values[1]);
 	time_t endTime = atoi(values[2]);
 
 	Entry entry = Entry(startTime, endTime, values[3], values[4]);
-	entryResults.push_back(entry);
+	entryResults->push_back(entry);
 
 	return 0;
 }
 
 std::vector<std::string> DatabaseAccess::queryProjects(std::string stmt) {
-	executeQuery(stmt, projectsCallback);
+	executeQuery(stmt, projectsCallback, &projectResults);
 	return std::vector<std::string>(projectResults);
 }
 
 std::vector<Entry> DatabaseAccess::queryEntries(std::string stmt) {
-	executeQuery(stmt, entriesCallback);
+	executeQuery(stmt, entriesCallback, &entryResults);
 	return std::vector<Entry>(entryResults);
 }
 
 void DatabaseAccess::executeUpdate(std::string stmt) {
-	executeQuery(stmt, NULL);
+	executeQuery(stmt, NULL, NULL);
 }
