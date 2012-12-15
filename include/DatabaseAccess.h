@@ -16,14 +16,14 @@
 class DatabaseAccess {
 private:
 	sqlite3 *dataBase;
-	std::vector<std::string> projectResults;
-	std::vector<Entry> entryResults;
+	std::vector<Project> projects;
+	std::vector<Entry> entries;
 	void executeQuery(std::string stmt, sqlite3_callback callback, void *resultVector);
 
 public:
 	DatabaseAccess(std::string dbName);
 	virtual ~DatabaseAccess();
-	std::vector<std::string> queryProjects(std::string stmt);
+	std::vector<Project>* getProjects();
 	std::vector<Entry> queryEntries(std::string stmt);
 	void executeUpdate(std::string stmt);
 };

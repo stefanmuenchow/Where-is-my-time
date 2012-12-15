@@ -10,21 +10,24 @@
 
 #include <string>
 #include <time.h>
+#include "../include/Project.h"
 
 class Entry {
 private:
+	int id;
 	time_t startTime;
 	time_t endTime;
-	std::string projectName;
+	int projectId;
 	std::string description;
 
 public:
-	Entry(time_t startTime, time_t endTime, std::string projectName, std::string description);
+	Entry(int id, time_t startTime, time_t endTime, int projectId, std::string description);
 
+	int get_id();
 	time_t get_start_time();
 	time_t get_end_time();
 	double get_duration();
-	std::string get_project_name();
+	int get_project_id();
 	std::string get_description();
 };
 

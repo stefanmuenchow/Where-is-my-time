@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <string.h>
 #include "../include/sqlite3.h"
 
 #include "../include/DatabaseAccess.h"
@@ -16,11 +17,11 @@ using namespace std;
 
 static string USAGE = string(
 		"USAGE:\n"
-		"  project add <projectName>\n"
-		"  project rem <projectName>\n"
+		"  project add <projectName> <description>\n"
+		"  project rm  <projectId>\n"
 		"  project list\n\n"
 		"  entry add <startTime> <endTime> <projectName> <description>\n"
-		"  entry rem <startTime> <endTime> <projectName>\n"
+		"  entry rm  <startTime> <endTime> <projectName>\n"
 		"  entry list [<startTime> <endTime>]\n"
 		"  entry list <projectName> [<startTime> <endTime>]\n\n"
 		"  track start <projectName>\n"
@@ -40,21 +41,16 @@ int main(int argc, char** argv) {
 
 	string paramCategory = string(argv[1]);
 	string paramCommand;
-	string paramArgs[4]= { "\0", "\0", "\0", "\0" };
-
 	if (argc >= 3) {
 		paramCommand = string(argv[2]);
 	}
 
+	vector<string> paramArgs = vector<string>();
 	int i;
 	for (i = 0; (i + 3) < argc; i++) {
-		paramArgs[i] = string(argv[i + 3]);
-	}
-
-	cout << paramCategory << endl;
-	cout << paramCommand << endl;
-	for (i = 0; i < 4; i++) {
-		cout << paramArgs[i] << endl;
+		if (strlen(argv[i + 3]) != 0) {
+			paramArgs.push_back(argv[i + 3]);
+		}
 	}
 
 	// Start main class with given params

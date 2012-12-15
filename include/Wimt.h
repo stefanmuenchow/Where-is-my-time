@@ -14,16 +14,16 @@
 class Wimt {
 private:
 	DatabaseAccess *dbAccess;
-	int handleProjectCommand(std::string command, std::string args[]);
-	int handleEntryCommand(std::string command, std::string args[]);
-	int handleTrackCommand(std::string command, std::string args[]);
-	int handleStatsCommand(std::string command, std::string args[]);
-	void printProjects(std::vector<std::string> projects);
-	void printEntries(std::vector<Entry> entries);
+	int handleProjectCommand(std::string command, std::vector<std::string> args);
+	int handleEntryCommand(std::string command, std::vector<std::string> args);
+	int handleTrackCommand(std::string command, std::vector<std::string> args);
+	int handleStatsCommand(std::string command, std::vector<std::string> args);
+	void printProjects(std::vector<Project>* projects);
+	void printEntries(std::vector<Entry> entries, std::vector<Project>* projects);
 
 public:
 	Wimt(DatabaseAccess *dbAccess);
-	int handleCommand(std::string category, std::string command, std::string args[]);
+	int handleCommand(std::string category, std::string command, std::vector<std::string> args);
 };
 
 #endif /* WIMT_H_ */

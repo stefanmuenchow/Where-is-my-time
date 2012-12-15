@@ -7,11 +7,16 @@
 
 #include "../include/Entry.h"
 
-Entry::Entry(time_t startTime, time_t endTime, std::string projectName, std::string description) {
+Entry::Entry(int id, time_t startTime, time_t endTime, int projectId, std::string description) {
+	Entry::id = id;
 	Entry::startTime = startTime;
 	Entry::endTime = endTime;
-	Entry::projectName = projectName;
+	Entry::projectId = projectId;
 	Entry::description = description;
+}
+
+int Entry::get_id() {
+	return id;
 }
 
 time_t Entry::get_start_time() {
@@ -26,8 +31,8 @@ double Entry::get_duration() {
 	return difftime(endTime, startTime);
 }
 
-std::string Entry::get_project_name() {
-	return projectName;
+int Entry::get_project_id() {
+	return projectId;
 }
 
 std::string Entry::get_description() {
