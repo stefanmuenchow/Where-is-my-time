@@ -26,7 +26,7 @@ public:
 	int get_id();
 	time_t get_start_time();
 	time_t get_end_time();
-	double get_duration();
+	time_t get_duration();
 	int get_project_id();
 	std::string get_description();
 };

@@ -27,8 +27,8 @@ time_t Entry::get_end_time() {
 	return endTime;
 }
 
-double Entry::get_duration() {
-	return difftime(endTime, startTime);
+time_t Entry::get_duration() {
+	return endTime - startTime;
 }
 
 int Entry::get_project_id() {

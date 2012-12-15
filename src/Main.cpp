@@ -20,15 +20,16 @@ static string USAGE = string(
 		"  project add <projectName> <description>\n"
 		"  project rm  <projectId>\n"
 		"  project list\n\n"
-		"  entry add <startTime> <endTime> <projectName> <description>\n"
-		"  entry rm  <startTime> <endTime> <projectName>\n"
+		"  entry add <startTime> <endTime> <projectId> <description>\n"
+		"  entry rm   <entryId>\n"
 		"  entry list [<startTime> <endTime>]\n"
 		"  entry list <projectName> [<startTime> <endTime>]\n\n"
 		"  track start <projectName>\n"
 		"  track stop <projectName> <description>\n\n"
 		"  stats [show | export] [<startTime> <endTime>]\n"
 		"  stats [show | export] <projectName> [<startTime> <endTime>]\n\n"
-		"  help\n");
+		"  help\n\n"
+		"All times have to be given in format YYYY-MM-DD_HH:mm (Y=year, M=month, D=day, H=hours in 24h format, m=minutes).");
 
 static string DB_NAME = "wimt.db";
 

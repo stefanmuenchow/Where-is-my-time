@@ -9,6 +9,7 @@
 #define WIMT_H_
 
 #include <string>
+#include <time.h>
 #include "DatabaseAccess.h"
 
 class Wimt {
@@ -18,8 +19,11 @@ private:
 	int handleEntryCommand(std::string command, std::vector<std::string> args);
 	int handleTrackCommand(std::string command, std::vector<std::string> args);
 	int handleStatsCommand(std::string command, std::vector<std::string> args);
+	time_t parseTime(std::string timeStr);
+	std::string formatTime(time_t time);
+	std::string formatDuration(time_t duration);
 	void printProjects(std::vector<Project>* projects);
-	void printEntries(std::vector<Entry> entries, std::vector<Project>* projects);
+	void printEntries(std::vector<Entry>& entries, std::vector<Project>* projects);
 
 public:
 	Wimt(DatabaseAccess *dbAccess);

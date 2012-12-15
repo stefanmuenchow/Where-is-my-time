@@ -22,8 +22,8 @@ static int projectsCallback(void *resultVector, int numResults, char **values, c
 static int entriesCallback(void *resultVector, int numResults, char **values, char **colNames) {
 	std::vector<Entry> *entryResults =  (std::vector<Entry>*) resultVector;
 	int entryId = atoi(values[0]);
-	time_t startTime = atoi(values[1]);
-	time_t endTime = atoi(values[2]);
+	time_t startTime = atol(values[1]);
+	time_t endTime = atol(values[2]);
 	int projId = atoi(values[3]);
 	Entry entry = Entry(entryId, startTime, endTime, projId, values[4]);
 	entryResults->push_back(entry);
